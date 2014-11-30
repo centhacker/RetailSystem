@@ -1,0 +1,8 @@
+5/1/2014 4:07:49 PM::CClients::Info-->Model id[1] ClientTypeId[2] Name[hamza ] phone[51981981] EmailAddress[ 5619151] Address1 [19165151] Address2 [1321351] City [ ] isVendor[ True] eDate[ 5/1/2014 4:07:43 PM]
+5/1/2014 4:07:52 PM::CClients::Info-->Record Updated Successfully
+5/1/2014 4:10:01 PM::CClients::Info-->Model id[1] ClientTypeId[1] Name[hamza ] phone[51981981] EmailAddress[ 5619151] Address1 [5619151] Address2 [1321351] City [ ] isVendor[ True] eDate[ 5/1/2014 4:10:00 PM]
+5/1/2014 4:10:01 PM::CClients::Info-->Record Updated Successfully
+5/1/2014 4:10:21 PM::CClients::Info-->Model id[1] ClientTypeId[2] Name[hamza ] phone[51981981] EmailAddress[ 5619151] Address1 [5619151] Address2 [1321351] City [ ] isVendor[ True] eDate[ 5/1/2014 4:10:21 PM]
+5/1/2014 4:10:21 PM::CClients::Info-->Record Updated Successfully
+5/1/2014 4:11:13 PM::CClients::Info-->Model id[1] ClientTypeId[2] Name[hamza ] phone[51981981] EmailAddress[ 5619151] Address1 [5619151] Address2 [1321351] City [ ] isVendor[ False] eDate[ 5/1/2014 4:11:13 PM]
+5/1/2014 4:11:13 PM::CClients::Info-->Record Updated Successfully

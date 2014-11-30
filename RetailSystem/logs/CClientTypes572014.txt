@@ -1,0 +1,2 @@
+5/7/2014 11:24:54 PM::CClientTypes::Info-->Model id[] Name[walk in customer] 
+5/7/2014 11:24:54 PM::CClientTypes::Info-->Record Inserted Successfully

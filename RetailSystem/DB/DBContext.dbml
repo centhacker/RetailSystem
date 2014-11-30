@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RetailSystem" Class="DBContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=RetailSystem;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RetailSystemConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AllowancesPaid" Member="AllowancesPaids">
+    <Type Name="AllowancesPaid">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PaidSalaryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllowancePaid" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AllowanceTitle" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BalanceSheet" Member="BalanceSheets">
+    <Type Name="BalanceSheet">
+      <Column Name="ACCOUNTID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ACCOUNTNAME" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ACCOUNTTOTAL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TYPE" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bank" Member="Banks">
+    <Type Name="Bank">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Branch" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BranchCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TelephoneNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Bank_BankAccount" Member="BankAccounts" ThisKey="id" OtherKey="BankId" Type="BankAccount" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChartOfAccounts" Member="ChartOfAccounts">
+    <Type Name="ChartOfAccount">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="num" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="e_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Ledger_ChartOfAccount" Member="Ledger" ThisKey="type" OtherKey="type" Type="Ledger" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClientTypes" Member="ClientTypes">
+    <Type Name="ClientType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="ClientType_Client" Member="Clients" ThisKey="id" OtherKey="ClientTypeId" Type="Client" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Department" Member="Departments">
+    <Type Name="Department">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Department_HOD" Member="HODs" ThisKey="id" OtherKey="DepartmentId" Type="HOD" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HOD" Member="HODs">
+    <Type Name="HOD">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Department_HOD" Member="Department" ThisKey="DepartmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
+      <Association Name="Employee_HOD" Member="Employee" ThisKey="EmployeeId" OtherKey="id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IncomeStatement" Member="IncomeStatements">
+    <Type Name="IncomeStatement">
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AccountId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AccountName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="value" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NetProfit" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InvoiceDetails" Member="InvoiceDetails">
+    <Type Name="InvoiceDetail">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InvoiceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="InvoiceDetail_InvoiceItem" Member="InvoiceItems" ThisKey="id" OtherKey="InvoicedetailId" Type="InvoiceItem" />
+      <Association Name="Invoice_InvoiceDetail" Member="Invoice" ThisKey="InvoiceId" OtherKey="id" Type="Invoice" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InvoiceItems" Member="InvoiceItems">
+    <Type Name="InvoiceItem">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InvoicedetailId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductCost" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Association Name="InvoiceDetail_InvoiceItem" Member="InvoiceDetail" ThisKey="InvoicedetailId" OtherKey="id" Type="InvoiceDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InvoicePayment" Member="InvoicePayments">
+    <Type Name="InvoicePayment">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InvoiceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Payment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Total" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Remaining" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Invoice_InvoicePayment" Member="Invoice" ThisKey="InvoiceId" OtherKey="id" Type="Invoice" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Invoices" Member="Invoices">
+    <Type Name="Invoice">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InvoiceType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="InvoiceTotal" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="InvoiceDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FiscalYeadId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Invoice_InvoiceDetail" Member="InvoiceDetails" ThisKey="id" OtherKey="InvoiceId" Type="InvoiceDetail" />
+      <Association Name="Invoice_InvoicePayment" Member="InvoicePayments" ThisKey="id" OtherKey="InvoiceId" Type="InvoicePayment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Journal" Member="Journals">
+    <Type Name="Journal">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="acc_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="des" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="type" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="e_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ledgers" Member="Ledgers">
+    <Type Name="Ledger">
+      <Column Name="type" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="e_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Ledger_ChartOfAccount" Member="ChartOfAccounts" ThisKey="type" OtherKey="type" Type="ChartOfAccount" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OwnerEquity" Member="OwnerEquities">
+    <Type Name="OwnerEquity">
+      <Column Name="OldCapital" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="newcapital" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="netincome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ow" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="finalcapital" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="fromDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="toDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Payroll" Member="Payrolls">
+    <Type Name="Payroll">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SalaryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateOfPay" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Payroll_PayrollDetail" Member="PayrollDetails" ThisKey="id" OtherKey="PayrollId" Type="PayrollDetail" />
+      <Association Name="Salary_Payroll" Member="Salary" ThisKey="SalaryId" OtherKey="id" Type="Salary" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PayrollDetails" Member="PayrollDetails">
+    <Type Name="PayrollDetail">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PayrollId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastMonthPaid" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Payroll_PayrollDetail" Member="Payroll" ThisKey="PayrollId" OtherKey="id" Type="Payroll" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Permissions" Member="Permissions">
+    <Type Name="Permission">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Permission" Member="Permission1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Postings" Member="Postings">
+    <Type Name="Posting">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="acc_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="acc_num" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="type" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="e_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Role_UserRolesContainer" Member="UserRolesContainers" ThisKey="id" OtherKey="RolesId" Type="UserRolesContainer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Salary" Member="Salaries">
+    <Type Name="Salary">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Salary" Member="Salary1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DesignationId" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Salary_Payroll" Member="Payrolls" ThisKey="id" OtherKey="SalaryId" Type="Payroll" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleTypes" Member="SaleTypes">
+    <Type Name="SaleType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Transaction]" Member="Transactions">
+    <Type Name="Transaction">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TransactionDetails" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TransactionType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FiscalYearId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Transaction_TransactionDetail" Member="TransactionDetails1" ThisKey="id" OtherKey="TransactionId" Type="TransactionDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TransactionDetail" Member="TransactionDetails">
+    <Type Name="TransactionDetail">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TransactionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FromWareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToWareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TransactionQuantity" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TransactionCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TotalCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Transaction_TransactionDetail" Member="Transaction" ThisKey="TransactionId" OtherKey="id" Type="Transaction" IsForeignKey="true" />
+      <Association Name="WareHouse_TransactionDetail" Member="WareHouse" ThisKey="FromWareHouseId" OtherKey="id" Type="WareHouse" IsForeignKey="true" />
+      <Association Name="WareHouse_TransactionDetail1" Member="WareHouse1" ThisKey="ToWareHouseId" OtherKey="id" Type="WareHouse" IsForeignKey="true" />
+      <Association Name="Product_TransactionDetail" Member="Product" ThisKey="ProductId" OtherKey="id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TransactionType" Member="TransactionTypes">
+    <Type Name="TransactionType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TransactionType" Member="TransactionType1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ActionType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrialBalance" Member="TrialBalances">
+    <Type Name="TrialBalance">
+      <Column Name="AccountId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AccountName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Debit" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Credit" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserDetails" Member="UserDetails">
+    <Type Name="UserDetail">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="cellNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="phoneNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="emailId" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CNIC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="User_UserDetail" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserRolesContainer" Member="UserRolesContainers">
+    <Type Name="UserRolesContainer">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RolesId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Role_UserRolesContainer" Member="Role" ThisKey="RolesId" OtherKey="id" Type="Role" IsForeignKey="true" />
+      <Association Name="User_UserRolesContainer" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Approved" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="User_UserDetail" Member="UserDetails" ThisKey="id" OtherKey="userId" Type="UserDetail" />
+      <Association Name="User_UserRolesContainer" Member="UserRolesContainers" ThisKey="id" OtherKey="userId" Type="UserRolesContainer" />
+      <Association Name="User_UserWareHouseContainer" Member="UserWareHouseContainers" ThisKey="id" OtherKey="UserId" Type="UserWareHouseContainer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserToEmployee" Member="UserToEmployees">
+    <Type Name="UserToEmployee">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WareHouse" Member="WareHouses">
+    <Type Name="WareHouse">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="openedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="WareHouse_TransactionDetail" Member="TransactionDetails" ThisKey="id" OtherKey="FromWareHouseId" Type="TransactionDetail" />
+      <Association Name="WareHouse_TransactionDetail1" Member="TransactionDetails1" ThisKey="id" OtherKey="ToWareHouseId" Type="TransactionDetail" />
+      <Association Name="WareHouse_Inventory" Member="Inventories" ThisKey="id" OtherKey="WareHouseId" Type="Inventory" />
+      <Association Name="WareHouse_UserWareHouseContainer" Member="UserWareHouseContainers" ThisKey="id" OtherKey="WareHouseId" Type="UserWareHouseContainer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Inventory" Member="Inventories">
+    <Type Name="Inventory">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FiscalYearId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="WareHouse_Inventory" Member="WareHouse" ThisKey="WareHouseId" OtherKey="id" Type="WareHouse" IsForeignKey="true" />
+      <Association Name="Product_Inventory" Member="Product" ThisKey="ProductId" OtherKey="id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.InventoryBalance" Member="InventoryBalances">
+    <Type Name="InventoryBalance">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="WarehouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductsId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PurchaseUnits" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PurchaseUnitsCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PurchaseTotal" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SaleUnits" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SaleUnitsCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SaleTotal" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BalanceUnits" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BalanceUnitsCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BalanceTotal" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PaymentBankContainer" Member="PaymentBankContainers">
+    <Type Name="PaymentBankContainer">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PaymentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BankId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AmountRemaining" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderLine" Member="OrderLines">
+    <Type Name="OrderLine">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SalePrice" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="units" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="totalProductCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Product_OrderLine" Member="Product" ThisKey="ProductId" OtherKey="id" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Payment" Member="Payments">
+    <Type Name="Payment">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TransactionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Paid" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PaymentState" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PaidSalary" Member="PaidSalaries">
+    <Type Name="PaidSalary">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SalaryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MonthPaid" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Paid" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DatePaid" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Employee_PaidSalary" Member="Employee" ThisKey="EmployeeId" OtherKey="id" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FiscalYear" Member="FiscalYears">
+    <Type Name="FiscalYear">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="fiscalFrom" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="fiscalTo" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DefaultFiscalYear" Member="DefaultFiscalYears">
+    <Type Name="DefaultFiscalYear">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DefaultfiscalYear" Member="DefaultfiscalYear1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BankAccount" Member="BankAccounts">
+    <Type Name="BankAccount">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BankId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AccountNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AccountTitle" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AccountHolderId" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OpeningBalance" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Balance" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BeginDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="BankAccount_AccountTransaction" Member="AccountTransactions" ThisKey="id" OtherKey="AccountId" Type="AccountTransaction" />
+      <Association Name="Bank_BankAccount" Member="Bank" ThisKey="BankId" OtherKey="id" Type="Bank" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AccountTransaction" Member="AccountTransactions">
+    <Type Name="AccountTransaction">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Debit" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Credit" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Total" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CurrentTransaction" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TransactionType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FiscalYearId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="BankAccount_AccountTransaction" Member="BankAccount" ThisKey="AccountId" OtherKey="id" Type="BankAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Transactions" Member="Transaction1s">
+    <Type Name="Transaction1">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CostPrice" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SalePrice" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="units" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TransactionType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ClientID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VendorID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DefaultCashAccounts" Member="DefaultCashAccounts">
+    <Type Name="DefaultCashAccount">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DefaultPurchaseAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DefaultSalesAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserWareHouseContainer" Member="UserWareHouseContainers">
+    <Type Name="UserWareHouseContainer">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_UserWareHouseContainer" Member="User" ThisKey="UserId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="WareHouse_UserWareHouseContainer" Member="WareHouse" ThisKey="WareHouseId" OtherKey="id" Type="WareHouse" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Vendor" Member="Vendors">
+    <Type Name="Vendor">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employees" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DesignationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HomePhone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CellNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="EmergencyContactNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WarehouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Employee_HOD" Member="HODs" ThisKey="id" OtherKey="EmployeeId" Type="HOD" />
+      <Association Name="Employee_PaidSalary" Member="PaidSalaries" ThisKey="id" OtherKey="EmployeeId" Type="PaidSalary" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CashAccount" Member="CashAccounts">
+    <Type Name="CashAccount">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CashAccountName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OpeningBalance" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BeginDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AccountType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CashAccount_CashTransaction" Member="CashTransactions" ThisKey="id" OtherKey="CashAccountId" Type="CashTransaction" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DefaultBankAccounts" Member="DefaultBankAccounts">
+    <Type Name="DefaultBankAccount">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PurchaseDefaultAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SalesDefaultAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PaymentLine" Member="PaymentLines">
+    <Type Name="PaymentLine">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PaymentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaidAmount" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RemainingAmount" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BankId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="CumulativeAmount" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ModeOfPayment" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Cheque" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="tag1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="tag2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="tag3" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="costPrice" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="salePrice" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FiscalYearId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Product_TransactionDetail" Member="TransactionDetails" ThisKey="id" OtherKey="ProductId" Type="TransactionDetail" />
+      <Association Name="Product_Inventory" Member="Inventories" ThisKey="id" OtherKey="ProductId" Type="Inventory" />
+      <Association Name="Product_OrderLine" Member="OrderLines" ThisKey="id" OtherKey="ProductId" Type="OrderLine" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CashTransaction" Member="CashTransactions">
+    <Type Name="CashTransaction">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CashAccountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Debit" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Credit" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Total" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TransactionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TransactionType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FiscalYearId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CashAccount_CashTransaction" Member="CashAccount" ThisKey="CashAccountId" OtherKey="id" Type="CashAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Clients" Member="Clients">
+    <Type Name="Client">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClientTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="isVendor" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NIC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="GrantorName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="GrantorNIC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="ClientType_Client" Member="ClientType" ThisKey="ClientTypeId" OtherKey="id" Type="ClientType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderNo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderDescription" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="deliveryDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TotalCost" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WareHouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VendorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FiscalYearId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Installments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="InstallmentDueDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ModeOfPayment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="GrantorName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

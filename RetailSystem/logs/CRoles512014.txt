@@ -1,0 +1,4 @@
+5/1/2014 4:33:42 PM::CRoles::Info-->Model Values id[] RoleName[Admin] 
+5/1/2014 4:33:50 PM::CRoles::Info-->Record Inserted Successfully
+5/1/2014 4:34:23 PM::CRoles::Info-->Model Values id[] RoleName[Front Desk] 
+5/1/2014 4:34:23 PM::CRoles::Info-->Record Inserted Successfully

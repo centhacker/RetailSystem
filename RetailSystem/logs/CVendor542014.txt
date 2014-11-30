@@ -1,0 +1,2 @@
+5/4/2014 5:47:41 PM::CVendor::Info-->Model Values id[] name[Hamza] Address[] phone[]
+5/4/2014 5:47:41 PM::CVendor::Info-->Record Inserted Successfully
