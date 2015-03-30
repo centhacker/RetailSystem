@@ -974,6 +974,7 @@
     <Content Include="Scripts\fonts\fontawesome-webfont.ttf" />
     <Content Include="Scripts\fonts\fontawesome-webfont.woff" />
     <Content Include="Scripts\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\inventory.pubxml" />
     <None Include="Properties\PublishProfiles\Retail.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
